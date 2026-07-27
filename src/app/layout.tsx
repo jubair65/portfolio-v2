@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     default: `${PERSONAL_DATA.fullName} | ${PERSONAL_DATA.title}`
   },
   description: PERSONAL_DATA.pageDescription,
+  verification: {
+    google: 'bLJgl-YKFSh5_zvrgqU-xpbw9TSUacuk4LqpWp2ztj8'
+  },
   keywords: [
     ...PERSONAL_DATA.persianKeywords,
     ...PERSONAL_DATA.englishKeywords,
