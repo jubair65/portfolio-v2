@@ -1,0 +1,16 @@
+.about-me {
+  strong {
+    font-weight: bold;
+    margin: 0 4px;
+  }
+  ul {
+    list-style: disc;
+  }
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

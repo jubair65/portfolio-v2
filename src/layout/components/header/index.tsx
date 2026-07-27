@@ -1,0 +1,60 @@
+'use client';
+
+import { sendGTMEvent } from '@next/third-parties/google';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { clsx } from 'clsx';
+
+import { GTM_EVENTS, MENU_ITEM_ROUTES, ROUTES } from '@/shared/constants';
+import { BurgerMenu } from '@/layout/components/burger-menu';
+import { ToggleThemeButton } from '@/shared/components';
+import { animator } from '@/shared/helpers';
+
+import styles from './header.module.scss';
+
+export function Header() {
+  const pathname: string = usePathname();
+
+  return (
+    <header
+      className={clsx(
+        'fixed top-0 z-50 flex w-full items-center justify-center pt-5 md:pt-10 lg:pt-16',
+        {
+          'backdrop-blur-sm': pathname !== ROUTES.HOME
+        }
+      )}
+    >
+      <nav className="flex w-11/12 flex-row-reverse items-center justify-between p-3">
+        <BurgerMenu />
+        <ul
+          className={clsx(
+            'flex w-full items-center justify-center gap-2 text-xl max-md:hidden',
+            styles['header__desktop-items-container']
+          )}
+        >
+          {MENU_ITEM_ROUTES.map(({ id, title, url }, index: number) => (
+            <li
+              key={`${title}-${id}-desktop`}
+              style={{ animationDelay: `${(index + 1) * 0.3}s` }}
+              className={animator({ name: 'fadeIn', speed: 'slow' })}
+            >
+              <Link
+                href={url}
+                onClick={() => sendGTMEvent(GTM_EVENTS.MENU(title))}
+                className="border-b border-transparent bg-transparent px-4 py-3 duration-200 hover:border-orange-500 whitespace-nowrap"
+              >
+                {title}
+              </Link>
+            </li>
+          ))}
+          <li
+            key="theme-toggle-desktop"
+            className={clsx('ml-4', animator({ name: 'fadeIn', delay: '3s' }))}
+          >
+            <ToggleThemeButton />
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+}

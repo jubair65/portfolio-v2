@@ -1,0 +1,154 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+import { sendGTMEvent } from '@next/third-parties/google';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
+import { clsx } from 'clsx';
+
+import { GTM_EVENTS, MENU_ITEM_ROUTES, ROUTES } from '@/shared/constants';
+import { animator, pageTitleGenerator } from '@/shared/helpers';
+import { ToggleThemeButton } from '@/shared/components';
+import { PERSONAL_DATA } from '@/data';
+
+import { BurgerMenuToolsAnimation } from './burger-menu-tools-animation';
+import styles from './burger-menu.module.scss';
+
+const MENU_OUT_ANIMATION_CLASSES: string[] = animator({
+  name: 'fadeOutUp',
+  speed: 'fast'
+}).split(' ');
+const LINK_ITEM_OUT_ANIMATION_CLASSES: string[] = animator({
+  name: 'fadeOutRight',
+  speed: 'fast'
+}).split(' ');
+
+export function BurgerMenu() {
+  const pathname: string = usePathname();
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const pageTitle = pageTitleGenerator(pathname);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClose = () => {
+    if (menuRef.current) {
+      menuRef.current.classList.add(...MENU_OUT_ANIMATION_CLASSES);
+      (menuRef.current.querySelectorAll('a') || []).forEach((item, index, list) => {
+        item.classList.add(...LINK_ITEM_OUT_ANIMATION_CLASSES);
+        item.style.animationDelay = `${(list.length - index) * 0.1}s`;
+      });
+      const timeOutId = setTimeout(() => {
+        setIsActive(false);
+        clearTimeout(timeOutId);
+      }, 500);
+    }
+  };
+
+  const handleToggle = () => {
+    sendGTMEvent(GTM_EVENTS.MENU(`TOGGLE BURGER MENU: ${!isActive}`));
+
+    if (isActive) {
+      handleClose();
+      return;
+    }
+    setIsActive(true);
+  };
+
+  useEffect(() => {
+    handleClose();
+  }, [pathname]);
+
+  return (
+    <>
+      <div className="md:hidden">
+        {isActive && (
+          <div
+            ref={menuRef}
+            className={clsx(
+              'fixed bottom-0 left-0 top-0 flex h-dvh w-full items-center justify-center overflow-hidden bg-white p-5 dark:bg-black',
+              styles['burger-menu__content-container'],
+              animator({ name: 'fadeInDown', speed: 'fast' })
+            )}
+          >
+            <div className="flex w-full flex-grow flex-col items-center justify-center gap-10 lg:gap-16">
+              {MENU_ITEM_ROUTES.map(({ id, title, url }, index) => (
+                <Link
+                  key={id}
+                  href={url}
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                  className={clsx(
+                    styles['burger-menu__link'],
+                    animator({ name: 'fadeInLeft', speed: 'fast' }),
+                    'relative w-4/5 text-left text-4xl font-bold tracking-widest duration-200 lg:text-6xl font-title'
+                  )}
+                  onClick={() => sendGTMEvent(GTM_EVENTS.MENU(`BURGER: ${title}`))}
+                >
+                  {title.toUpperCase()}
+                </Link>
+              ))}
+              {/* Toggle Theme */}
+              <div
+                className={clsx(
+                  animator({ name: 'fadeIn', speed: 'fast', delay: '1s' }),
+                  'w-4/5 relative flex justify-start items-center text-left mt-5'
+                )}
+              >
+                <ToggleThemeButton isBurgerMenu />
+              </div>
+            </div>
+            <BurgerMenuToolsAnimation />
+          </div>
+        )}
+
+        <button
+          onClick={handleToggle}
+          title="Burger Menu"
+          aria-label="Burger Menu Toggle"
+          className={clsx(
+            'relative h-12 w-12 rounded-full p-5',
+            animator({ name: 'fadeIn', delay: '1s' })
+          )}
+        >
+          <div
+            className={clsx(
+              'absolute left-0 top-0 h-full w-full border',
+              styles['burger-menu__button-outline-1']
+            )}
+          />
+          <div
+            className={clsx(
+              'absolute left-0 top-0 h-full w-full border',
+              styles['burger-menu__button-outline-2']
+            )}
+          />
+          <div
+            className={clsx('w-full', styles['burger-menu__button-content'], {
+              [styles['burger-menu__button-content--is-active']]: isActive
+            })}
+          />
+        </button>
+      </div>
+
+      <div
+        className={clsx('hidden flex-col justify-center max-md:flex', {
+          'max-md:hidden': pathname === ROUTES.HOME || isActive
+        })}
+      >
+        <h3
+          className={clsx(
+            'text-2xl font-bold font-title',
+            animator({ name: 'fadeInLeft' })
+          )}
+        >
+          {PERSONAL_DATA.fullName}
+        </h3>
+        <p className={clsx('text-lg', animator({ name: 'fadeIn', delay: '1s' }))}>
+          {pageTitle}
+        </p>
+      </div>
+    </>
+  );
+}

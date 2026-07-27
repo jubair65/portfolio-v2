@@ -1,0 +1,31 @@
+code {
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+pre code {
+  padding: 1em;
+  transition-duration: 500ms;
+}
+
+pre {
+  margin: 20px 0;
+  position: relative;
+  border-radius: 8px;
+  transition-duration: 500ms;
+}
+
+.hljs-copy-button {
+  width: 20px;
+  height: 20px;
+  margin: 16px;
+  height: 24px;
+  border: unset;
+  cursor: pointer;
+  background-color: transparent !important;
+
+  &::before {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
