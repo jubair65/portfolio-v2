@@ -3,7 +3,7 @@ export const PERSONAL_DATA = {
   lastName: 'Hasan',
   fullName: 'Jubair Bin Hasan',
   title: 'Founder, NotesBridge | Java/C++/Python Developer',
-  url: 'https://jubair65.github.io',
+  url: 'https://jubairbh.vercel.app',
   pageDescription:
     "I'm Jubair Bin Hasan, a 3rd-year Computer Science student at the University of Asia Pacific. I built and launched NotesBridge, a peer-to-peer study resource platform with a Karma-point gamification system. I work with Java, C++, Python, and Django, and compete actively on Codeforces and Beecrowd.",
   persianKeywords: [],
