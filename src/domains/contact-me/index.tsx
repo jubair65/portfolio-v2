@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { clsx } from 'clsx';
 
-import { CONTACT_ME_DATA } from '@/data';
 import { sendGTMEvent } from '@next/third-parties/google';
 import { ContentContainer } from '@/layout/components';
-import { GTM_EVENTS } from '@/shared/constants';
 import { PageHeader } from '@/shared/components';
+import { GTM_EVENTS } from '@/shared/constants';
 import { animator } from '@/shared/helpers';
+import { CONTACT_ME_DATA } from '@/data';
 
 import { ContactForm } from './components';
 

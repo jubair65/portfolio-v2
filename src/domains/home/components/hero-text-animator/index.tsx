@@ -15,7 +15,7 @@ const DecryptedText = dynamic(
   { ssr: false }
 );
 
-const WORDS = ["Jubair", "Bin", "Hasan"];
+const WORDS = ['Jubair', 'Bin', 'Hasan'];
 
 export function HeroTextAnimator() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +31,7 @@ export function HeroTextAnimator() {
 
         words.forEach((word) => {
           const chars = word.querySelectorAll('span');
-          
+
           timeline.set(word, { display: 'flex' });
           timeline.fromTo(
             chars,
@@ -58,7 +58,10 @@ export function HeroTextAnimator() {
   );
 
   return (
-    <div ref={containerRef} className="invisible flex w-full flex-col items-center justify-center">
+    <div
+      ref={containerRef}
+      className="invisible flex w-full flex-col items-center justify-center"
+    >
       <h1 className="mt-10 flex w-11/12 select-none items-center justify-center overflow-hidden text-8xl font-extrabold font-title leading-tight h-[120px]">
         {WORDS.map((word, wordIndex) => (
           <div key={wordIndex} className="word-container flex">
