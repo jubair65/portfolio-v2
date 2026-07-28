@@ -6,8 +6,8 @@ import { clsx } from 'clsx';
 import { sendGTMEvent } from '@next/third-parties/google';
 
 import { EMAIL_VALIDATION_REGEX, GTM_EVENTS } from '@/shared/constants';
-import { TextInput, Button } from '@/shared/components';
 import { CONTACT_ME_DATA, GENERAL_SITE_DATA } from '@/data';
+import { TextInput, Button } from '@/shared/components';
 
 interface ContactMeForm {
   email: string;
@@ -36,9 +36,9 @@ export function ContactForm() {
 
   const onSubmit = (data: ContactMeForm) => {
     sendGTMEvent(GTM_EVENTS.SEND_MESSAGE('success'));
-    
+
     const mailtoUrl = `mailto:23201065@uap-bd.edu?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.email}\n\n${data.message}`)}`;
-    
+
     // Open in default email client
     window.location.href = mailtoUrl;
   };
@@ -117,11 +117,7 @@ export function ContactForm() {
         )}
       />
       <div className="mt-2 flex w-full justify-end">
-        <Button
-          type="submit"
-          testId="submit-button"
-          label={contactForm.submitButton}
-        />
+        <Button type="submit" testId="submit-button" label={contactForm.submitButton} />
       </div>
     </form>
   );

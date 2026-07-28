@@ -79,7 +79,7 @@ export const ABOUT_ME_DATA: {
     },
     {
       type: ABOUT_ME_CONTENT_TYPE.text,
-      data: "Beyond coding, I received the <strong>EC Award on Pixabay</strong> for an original digital illustration, and I have an ongoing interest in mobile photography and visual content publishing."
+      data: 'Beyond coding, I received the <strong>EC Award on Pixabay</strong> for an original digital illustration, and I have an ongoing interest in mobile photography and visual content publishing.'
     }
   ]
 } as const;

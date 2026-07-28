@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { ToastContainer } from 'react-toastify';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
@@ -184,6 +185,8 @@ export default function RootLayout({
         <ServiceWorkerRegistrar />
 
         <ThirdPartyScripts />
+
+        <Analytics />
 
         <Script
           id="structured-data"
