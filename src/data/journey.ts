@@ -28,7 +28,7 @@ const JOURNEY_ITEM_DATA: JourneyItem[] = [
     description:
       '<p>Currently pursuing my undergraduate degree in CSE at the <strong>University of Asia Pacific (UAP)</strong>. Building a strong foundation in programming, software development, and system design.</p>',
     items: [
-      'Recipient of the VC Award and Dean\'s Award for consistent academic excellence at UAP.',
+      "Recipient of the VC Award and Dean's Award for consistent academic excellence at UAP.",
       'Developed multiple projects including NotesBridge, a Library Management System, and a Carpool Management System.'
     ]
   },
