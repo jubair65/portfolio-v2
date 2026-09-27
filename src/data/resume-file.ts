@@ -1,5 +1,5 @@
 export const RESUME_FILE = {
   actionLabel: 'Download Resume',
-  url: '/Resume_Jubair_Bin_Hasan.pdf',
-  fileName: 'Resume_Jubair_Bin_Hasan.pdf'
+  url: '/Jubair_Bin_Hasan_Resume.pdf',
+  fileName: 'Jubair_Bin_Hasan_Resume.pdf'
 } as const;
